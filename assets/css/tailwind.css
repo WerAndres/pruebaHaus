@@ -1,0 +1,12 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+@font-face {
+    font-family: 'Silka';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Silka'), url('https://fonts.cdnfonts.com/s/19454/Silka-Regular.woff') format('woff');
+}
