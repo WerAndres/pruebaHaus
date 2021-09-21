@@ -146,7 +146,7 @@ export default Vue.extend({
     async getRealEstates () {
       try {
         this.isLoading = true
-        const result = await getListRealEstates(this.$axios)
+        const result = await getListRealEstates(this)
         this.data = result.data
         this.included = result.included
         this.isLoading = false
