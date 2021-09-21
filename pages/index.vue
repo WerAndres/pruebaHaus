@@ -17,13 +17,13 @@
       </div>
       <div v-if="!isLoading" class="md:mt-10 max-w-screen-2xl row">
         <div v-for="item in data" :key="item.id" class="col grid mb-14 md:ml-8 max-w-xs mr-auto ml-auto justify-center">
-          <div class="w-72 h-52">
+          <div class="w-72 h-52 cursor-pointer" @click="clickTag(item)">
             <div v-if="item.attributes.real_estate_ids.length === 0" class="absolute z-30">
               <v-img
                 class="rounded-lg border-2 border-solid border-white"
                 height="200px"
                 width="290px"
-                :src="searchInfo(item.attributes.real_estate_ids[0]).attributes.gallery_urls[0]"
+                :src="searchItem(item.attributes.real_estate_ids[0]).attributes.gallery_urls[0]"
               />
             </div>
             <div v-if="item.attributes.real_estate_ids.length > 0" class="absolute z-30">
@@ -31,7 +31,7 @@
                 class="rounded-lg border-2 border-solid border-white"
                 height="200px"
                 :width="item.attributes.real_estate_ids.length === 1 ? '290px' : '150px'"
-                :src="searchInfo(item.attributes.real_estate_ids[0]).attributes.gallery_urls[0]"
+                :src="searchItem(item.attributes.real_estate_ids[0]).attributes.gallery_urls[0]"
               />
             </div>
             <div v-if="item.attributes.real_estate_ids.length > 2" class="absolute z-20 ml-20">
@@ -39,7 +39,7 @@
                 class="rounded-lg border-2 border-solid border-white"
                 height="200px"
                 width="150px"
-                :src="searchInfo(item.attributes.real_estate_ids[1]).attributes.gallery_urls[0]"
+                :src="searchItem(item.attributes.real_estate_ids[1]).attributes.gallery_urls[0]"
               />
             </div>
             <div
@@ -50,7 +50,7 @@
                 class="rounded-lg border-2 border-solid border-white "
                 height="200px"
                 :width="item.attributes.real_estate_ids.length === 2 ? '200px' : '150px'"
-                :src="item.attributes.real_estate_ids.length > 2 ? searchInfo(item.attributes.real_estate_ids[2]).attributes.gallery_urls[0] : searchInfo(item.attributes.real_estate_ids[1]).attributes.gallery_urls[0]"
+                :src="item.attributes.real_estate_ids.length > 2 ? searchItem(item.attributes.real_estate_ids[2]).attributes.gallery_urls[0] : searchItem(item.attributes.real_estate_ids[1]).attributes.gallery_urls[0]"
               />
               <img
                 v-if="item.attributes.real_estate_ids.length > 2"
@@ -67,15 +67,15 @@
             <template #activator="{ on, attrs }">
               <div
                 v-bind="attrs"
-                class="text-lg font-semibold mt-5 text-lh-jungle-green leading-4 text-left whitespace-nowrap overflow-ellipsis overflow-hidden"
+                class="text-lg font-semibold mt-5 text-lh-jungle-green leading-4 text-left whitespace-nowrap overflow-ellipsis overflow-hidden cursor-pointer"
                 v-on="on"
               >
                 {{ item.attributes.name }}
               </div>
             </template>
-            <span>{{ item.attributes.name }}</span>
+            <span @click="clickTag(item)">{{ item.attributes.name }}</span>
           </v-tooltip>
-          <div class="text-sm text-gray-400 mt-3 leading-6 text-left">
+          <div class="text-sm text-gray-400 mt-3 leading-6 text-left cursor-pointer" @click="clickTag(item)">
             {{ item.attributes.real_estate_ids.length }} propiedades guardadas
           </div>
         </div>
@@ -107,15 +107,25 @@
         </v-row>
       </v-alert>
     </div>
+    <v-dialog
+      v-model="dialog"
+      width="800"
+    >
+      <listDetails :current-item="currentItem" :current-list-item="currentListItem" @action="stateDialog" />
+    </v-dialog>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 
 import Vue from 'vue'
 import getListRealEstates from '../services/realEstatesService'
+import listDetails from '../components/listDetails.vue'
 
 export default Vue.extend({
+  components: {
+    listDetails
+  },
   layout: 'default',
   data () {
     return {
@@ -123,7 +133,10 @@ export default Vue.extend({
       included: [],
       isLoading: true,
       isError: false,
-      errorMsg: ''
+      errorMsg: '',
+      dialog: false,
+      currentItem: { attributes: { real_estate_ids: [] } },
+      currentListItem: []
     }
   },
   mounted () {
@@ -143,12 +156,25 @@ export default Vue.extend({
         this.errorMsg = e.message
       }
     },
-    searchInfo (id: any) {
+    searchItem (id) {
       if (id) {
-        return this.included.find((elem: any) => elem.id === id.toString()) || { attributes: { gallery_urls: ['defaultHouse.png'] } }
+        return this.included.find(elem => elem.id === id.toString()) || { attributes: { gallery_urls: ['/defaultHouse.png'] } }
       } else {
         return { attributes: { gallery_urls: ['/defaultHouse.png'] } }
       }
+    },
+    searchListItem (ids) {
+      let result = []
+      result = this.included.filter(item => ids.includes(parseInt(item.id)))
+      return result
+    },
+    clickTag (item) {
+      this.dialog = true
+      this.currentItem = item
+      this.currentListItem = this.searchListItem(this.currentItem.attributes.real_estate_ids)
+    },
+    stateDialog (action) {
+      this.dialog = action
     }
   }
 

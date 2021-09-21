@@ -7,12 +7,16 @@ module.exports = {
   theme: {
     fontFamily: 'Silka',
     zIndex: {
-      100: '100 !important'
+      100: '100 !important',
+      10: '10',
+      20: '20',
+      30: '30'
     },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
       white: '#FAFAFA',
+      black: '#123',
       'lh-jungle-green': '#012D26',
       'lh-md-blue': '#EBEDFF',
       'lh-sky-blue': '#3948FF',

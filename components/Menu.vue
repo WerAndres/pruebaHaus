@@ -136,7 +136,7 @@ export default {
         {
           name: 'Mi perfil',
           subItems: [
-            { name: 'Ir a mi perfil', href: '#miPerfil' },
+            { name: 'Ir a mi perfil', href: 'profile' },
             { name: 'Cerrar sesión', href: '#logOut' }
           ]
         }

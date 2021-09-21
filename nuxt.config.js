@@ -4,7 +4,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'laHaus',
+    title: 'LaHaus',
     htmlAttrs: {
       lang: 'en'
     },
@@ -24,6 +24,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/filters',
+    '~/plugins/googleMaps'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -44,7 +46,6 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios'
   ],
-
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: 'https://lh-real-estates-challenge-api.herokuapp.com/real-estates'
@@ -52,6 +53,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    transpile: [/^vue2-google-maps($|\/)/]
   },
   tailwindcss: {
     cssPath: '~/assets/css/tailwind.css',
