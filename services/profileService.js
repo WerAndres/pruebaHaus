@@ -44,6 +44,11 @@ const profiles = [
 export default async function getProfile (context, id) {
   // const result = await context.$axios.$get()
   // mock service whit 0 register
-  const result = await profiles[Math.floor(Math.random() * profiles.length)]
+  let result = {}
+  if (id) {
+    result = await profiles[id]
+  } else {
+    result = await profiles[Math.floor(Math.random() * profiles.length)]
+  }
   return result
 }

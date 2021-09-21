@@ -1,6 +1,7 @@
 <template>
   <div id="menu">
     <v-card
+      name="card"
       flat
       tile
       class="bg-white"
@@ -15,7 +16,7 @@
             <div class="h-2 w-2 rounded-full float-right -ml-2 bg-lh-caribbean-green relative -top-6" />
           </div>
           <div class="md:ml-12 ml-3 md:mt-0 mt-1 float-left">
-            <a href="/#">
+            <a href="/">
               <img
                 height="24px"
                 width="24px"
@@ -42,6 +43,7 @@
               <template #activator="{ on, attrs }">
                 <div
                   v-bind="attrs"
+                  :id="elem.id"
                   class="h-5 w-30"
                   v-on="on"
                 >
@@ -55,7 +57,7 @@
                   v-for="(item, i) in elem.subItems"
                   :key="i"
                 >
-                  <a :href="item.href" class="text-black">
+                  <a :id="item.id" :href="item.href" class="text-black">
                     <span class="ml-1 text-black">
                       {{ item.name }}
                     </span>
@@ -76,7 +78,7 @@
       class="z-100"
     >
       <div class="w-full inline-flex justify-center py-5">
-        <a href="/#">
+        <a href="/">
           <img
             height="24px"
             width="24px"
@@ -136,9 +138,10 @@ export default {
         {
           name: 'Mi perfil',
           subItems: [
-            { name: 'Ir a mi perfil', href: 'profile' },
+            { name: 'Ir a mi perfil', href: 'profile', id: 'profileButton' },
             { name: 'Cerrar sesión', href: '#logOut' }
-          ]
+          ],
+          id: 'profileMenu'
         }
       ],
       admins: [

@@ -47,7 +47,7 @@ export default {
     async getProfileUser () {
       try {
         this.isLoading = true
-        this.profile = await getProfile(this, 1)
+        this.profile = await getProfile(this)
         this.isLoading = false
       } catch (e) {
         this.isLoading = false

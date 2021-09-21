@@ -120,7 +120,7 @@
 
 import Vue from 'vue'
 import getListRealEstates from '../services/realEstatesService'
-import listDetails from '../components/listDetails.vue'
+import listDetails from '../components/ListDetails'
 
 export default Vue.extend({
   components: {
@@ -146,7 +146,7 @@ export default Vue.extend({
     async getRealEstates () {
       try {
         this.isLoading = true
-        const result = await getListRealEstates(this)
+        const result = await getListRealEstates(this.$axios)
         this.data = result.data
         this.included = result.included
         this.isLoading = false

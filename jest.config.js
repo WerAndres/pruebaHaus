@@ -10,6 +10,9 @@ module.exports = {
     'vue',
     'json'
   ],
+  transformIgnorePatterns: [
+    'node_modules/(?!vue2-google-maps)'
+  ],
   transform: {
     '^.+\\.ts$': 'ts-jest',
     '^.+\\.js$': 'babel-jest',
@@ -20,5 +23,6 @@ module.exports = {
     '<rootDir>/components/**/*.vue',
     '<rootDir>/pages/**/*.vue'
   ],
-  testEnvironment: 'jsdom'
+  testEnvironment: 'jsdom',
+  setupFiles: ['<rootDir>/test/setup.js'] // <- add this
 }

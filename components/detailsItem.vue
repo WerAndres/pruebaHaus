@@ -125,7 +125,7 @@
   </div>
 </template>
 <script>
-import googleMap from '~/components/googleMaps.vue'
+import googleMap from '~/components/GoogleMaps'
 
 export default {
   components: {

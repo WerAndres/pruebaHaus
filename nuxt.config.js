@@ -24,9 +24,13 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/filters',
-    '~/plugins/googleMaps'
+    '@/plugins/filters',
+    '@/plugins/googleMaps'
   ],
+
+  env: {
+    GOOGLE_API_KEY: process.env.GOOGLE_API_KEY
+  },
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

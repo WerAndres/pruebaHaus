@@ -78,7 +78,7 @@
 </template>
 <script>
 
-import detailsItem from '../components/detailsItem.vue'
+import detailsItem from './DetailsItem'
 
 export default {
   components: {

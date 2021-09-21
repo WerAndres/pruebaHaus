@@ -3,6 +3,9 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'AIzaSyDeCXo4BkyTxcMKr5PHkmBpqulc-YedDJY'
+    key: process.env.GOOGLE_API_KEY,
+    libraries: 'places'
   }
 })
+
+Vue.component('GoogleMap', VueGoogleMaps.Map)
