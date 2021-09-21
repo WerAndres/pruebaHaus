@@ -4,7 +4,6 @@
       {{ profile.name }}
     </div>
     <v-card
-      :loading="loading"
       class="mx-auto my-12"
       max-width="374"
     >
